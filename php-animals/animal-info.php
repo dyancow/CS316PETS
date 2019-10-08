@@ -1,9 +1,9 @@
 <?php
-  if (!isset($_POST['drinker'])) {
+  if (!isset($_POST['id'])) {
     echo "You need to specify a drinker. Please <a href='all-drinkers.php'>try again</a>.";
     die();
   }
-  $drinker = $_POST['drinker'];
+  $id = $_POST['id'];
   // In production code, you might want to "cleanse" the $drinker string
   // to remove potential hacks before doing something with it (e.g.,
   // passing it to the DBMS).  That said, using prepared statements
@@ -12,10 +12,10 @@
 ?>
 
 <html>
-<head><title>Drinker Information: <?= $drinker ?></title></head>
+<head><title>Animal Information: </title></head>
 <body>
 
-<h1>Drinker Information: <?=$drinker ?></h1>
+<h1>Animal Information: </h1>
 <?php
   try {
     // Including connection info (including database password) from outside
@@ -32,17 +32,17 @@
     // but it is prone to SQL injection attack:
     // $st = $dbh->query("SELECT address FROM Drinker WHERE name='" . $drinker . "'");
     // A much safer method is to use prepared statements:
-    $st = $dbh->prepare("SELECT address FROM Drinker WHERE name=?");
-    $st->execute(array($drinker));
+    $st = $dbh->prepare("SELECT pet_owner_number FROM Pet_listing WHERE id=?");
+    $st->execute(array($id));
     if ($st->rowCount() == 0) {
-      die('There is no drinker named ' . $drinker . ' in the database.');
+      die('There is no animal with this name and breed in the database.');
     } else if ($st->rowCount() > 1) {
-      die('Something is wrong --- there are ' . $count . ' drinkers named ' . $drinker . ' in the database.');
+      die('Something is wrong --- there are ' . $count . ' animals with the same id ' . $id . ' in the database.');
     }
     $myrow = $st->fetch();
-    echo "Address: ", $myrow['address'];
+    echo "Pet Owner Number: ", $myrow['pet_owner_number'];
     echo "<br/>\n";
-    echo "Beer(s) liked: ";
+    /**echo "Beer(s) liked: ";
     $st = $dbh->prepare("SELECT beer FROM Likes WHERE drinker=?");
     $st->execute(array($drinker));
     $count = 0;
@@ -75,9 +75,9 @@
   } catch (PDOException $e) {
     print "Database error: " . $e->getMessage() . "<br/>";
     die();
-  }
+  }**/
 ?>
-Go <a href='all-drinkers.php'>back</a>
-or <a href='edit-drinker.php?drinker=<?= $drinker ?>'>edit</a> the information.
+Go <a href='all-animals.php'>back</a>
+<!-- or <a href='edit-drinker.php?drinker=<?= $id ?>'>edit</a> the information.-->
 </body>
 </html>
