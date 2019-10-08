@@ -18,13 +18,13 @@
     $st = $dbh->query('SELECT * FROM Pet_listings');
     if (($myrow = $st->fetch())) {
 ?>
-<form method="post" action="drinker-info.php">
+<form method="post" action="animal-info.php">
 Select an animal below to view more information:<br/>
 <?php
       do {
         // echo produces output HTML:
-        echo "<input type='radio' name='name'+' '+'breed' value='" . $myrow['name'] . "'/>";
-        echo $myrow['name'] . "<br/>";
+        echo "<input type='radio' name='name' value='" . $myrow['id'] . "'/>";
+        echo $myrow['name'] . ' ' . $myrow['breed'] . "<br/>";
       } while ($myrow = $st->fetch());
       // Below we will see the use of a "short open tag" that is equivalent
       // to echoing the enclosed expression.
