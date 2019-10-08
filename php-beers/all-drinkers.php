@@ -1,7 +1,7 @@
 <html>
-<head><title>All Drinkers</title></head>
+<head><title>Dogs available for adoptiom</title></head>
 <body>
-<h1>All Drinkers</h1>
+<h1>Available dogs</h1>
 
 <?php
   try {
