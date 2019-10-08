@@ -1,5 +1,5 @@
 <html>
-<head><title>Dogs available for adoptiom</title></head>
+<head><title>Dogs available for adoption</title></head>
 <body>
 <h1>Available dogs</h1>
 
