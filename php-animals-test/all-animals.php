@@ -8,14 +8,13 @@
     // Including connection info (including database password) from outside
     // the public HTML directory means it is not exposed by the web server,
     // so it is safer than putting it directly in php code:
-    include("/etc/php/pdo-beers.php");
-    $dbh = dbconnect();
+    $myPDO = new PDO('pgsql:host=localhost;dbname=animals');
   } catch (PDOException $e) {
     print "Error connecting to the database: " . $e->getMessage() . "<br/>";
     die();
   }
   try {
-    $st = $dbh->query('SELECT * FROM Pet_listings');
+    $st = $myPDO->query('SELECT * FROM Pet_listings');
     if (($myrow = $st->fetch())) {
 ?>
 <form method="post" action="animal-info.php">
