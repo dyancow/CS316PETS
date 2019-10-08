@@ -21,8 +21,7 @@
     // Including connection info (including database password) from outside
     // the public HTML directory means it is not exposed by the web server,
     // so it is safer than putting it directly in php code:
-    include("/etc/php/pdo-beers.php");
-    $dbh = dbconnect();
+    $myPDO = new PDO('pgsql:host=localhost;dbname=animals');
   } catch (PDOException $e) {
     print "Error connecting to the database: " . $e->getMessage() . "<br/>";
     die();
@@ -32,7 +31,7 @@
     // but it is prone to SQL injection attack:
     // $st = $dbh->query("SELECT address FROM Drinker WHERE name='" . $drinker . "'");
     // A much safer method is to use prepared statements:
-    $st = $dbh->prepare("SELECT pet_owner_number FROM Pet_listing WHERE id=?");
+    $st = $myPDO->prepare("SELECT pet_owner_number FROM Pet_listing WHERE id=?");
     $st->execute(array($id));
     if ($st->rowCount() == 0) {
       die('There is no animal with this name and breed in the database.');
@@ -43,7 +42,7 @@
     echo "Pet Owner Number: ", $myrow['pet_owner_number'];
     echo "<br/>\n";
     /**echo "Beer(s) liked: ";
-    $st = $dbh->prepare("SELECT beer FROM Likes WHERE drinker=?");
+    $st = $myPDO->prepare("SELECT beer FROM Likes WHERE drinker=?");
     $st->execute(array($drinker));
     $count = 0;
     foreach ($st as $myrow) {
@@ -58,7 +57,7 @@
     }
     echo "<br/>\n";
     echo "Bar(s) frequented: ";
-    $st = $dbh->prepare("SELECT bar, times_a_week FROM Frequents WHERE drinker=?");
+    $st = $myPDO->prepare("SELECT bar, times_a_week FROM Frequents WHERE drinker=?");
     $st->execute(array($drinker));
     $count = 0;
     foreach ($st as $myrow) {
