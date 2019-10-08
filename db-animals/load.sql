@@ -1,0 +1,1 @@
+\COPY Pet_listing(id,name,breed,pet_owner_number) FROM 'data/animals.dat' WITH DELIMITER ',' NULL '' CSV

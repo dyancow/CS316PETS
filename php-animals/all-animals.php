@@ -15,7 +15,7 @@
     die();
   }
   try {
-    $st = $dbh->query('SELECT * FROM Drinker');
+    $st = $dbh->query('SELECT * FROM Pet_listings');
     if (($myrow = $st->fetch())) {
 ?>
 <form method="post" action="drinker-info.php">
