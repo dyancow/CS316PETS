@@ -1,4 +1,5 @@
 ##CS316 Group Project: Adoptions Database
+
 ####By Saloni Bulchandani, Michelle Li, Charolton Lu, Dian Niu, and Tanisha Nalavadi
 ----- 
 You can clone the working repository into your vm with 

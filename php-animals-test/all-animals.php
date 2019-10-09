@@ -8,33 +8,32 @@
     // Including connection info (including database password) from outside
     // the public HTML directory means it is not exposed by the web server,
     // so it is safer than putting it directly in php code:
-    include("/etc/php/pdo-beers.php");
-    $dbh = dbconnect();
+    $myPDO = new PDO('pgsql:host=localhost;dbname=animals');
   } catch (PDOException $e) {
     print "Error connecting to the database: " . $e->getMessage() . "<br/>";
     die();
   }
   try {
-    $st = $dbh->query('SELECT * FROM Drinker');
+    $st = $myPDO->query('SELECT * FROM Pet_listings');
     if (($myrow = $st->fetch())) {
 ?>
-<form method="post" action="drinker-info.php">
-Select a drinker below to view more information:<br/>
+<form method="post" action="animal-info.php">
+Select an animal below to view more information:<br/>
 <?php
       do {
         // echo produces output HTML:
-        echo "<input type='radio' name='drinker' value='" . $myrow['name'] . "'/>";
-        echo $myrow['name'] . "<br/>";
+        echo "<input type='radio' name='name' value='" . $myrow['id'] . "'/>";
+        echo $myrow['name'] . ' ' . $myrow['breed'] . "<br/>";
       } while ($myrow = $st->fetch());
       // Below we will see the use of a "short open tag" that is equivalent
       // to echoing the enclosed expression.
 ?>
-<?= $st->rowCount() ?> drinker(s) found in the database.<br/>
+<?= $st->rowCount() ?> animals(s) found in the database.<br/>
 <input type="submit" value="GO!"/>
 </form>
 <?php
     } else {
-      echo "There is no drinker in the database.";
+      echo "There is no animal in the database.";
     }
   } catch (PDOException $e) {
     print "Database error: " . $e->getMessage() . "<br/>";
